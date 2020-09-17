@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.macinternetservices.aloof" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <application
+        android:name="com.macinternetservices.aloof.MainApplication"
+        android:allowBackup="true"
+        android:usesCleartextTraffic="true"
+        android:icon="@mipmap/ic_logo_foreground"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:persistent="true">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAr-MP4NvIReNR8jnfI4l1ajOCQyJSn9Mg" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.macinternetservices.aloof.MainActivity" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.DevicesActivity"
+            android:label="@string/devices_title" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.SendCommandActivity"
+            android:label="@string/send_command_title" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.AddDeviceActivity"
+            android:label="Add Device" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.RouteActivity"
+            android:label="View Route" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.AddGeoFenceActivity"
+            android:label="Add Device GeoFence" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.DelDeviceActivity"
+            android:label="Delete Device" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.EditDeviceActivity"
+            android:label="Edit Device" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.GeofencesActivity"
+            android:label="Edit Geofences" />
+
+        <activity
+            android:name="com.macinternetservices.aloof.PermissionRationalActivity"
+            android:label="Activity Permission" />
+
+        <service android:name="com.macinternetservices.aloof.LocationService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <!-- service android:name=".TransitionService"
+            android:enabled="true"
+            android:exported="true"/ -->
+
+        <receiver android:name="com.macinternetservices.aloof.ActivityTransitionBroadcastReceiver"
+            android:exported="false"
+            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION">
+            <intent-filter>
+                <action android:name="org.traccar.manager.ACTION_PROCESS_ACTIVITY_TRANSITIONS" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
