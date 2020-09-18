@@ -56,7 +56,7 @@ public class LocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("Monitoring","Monitoring Enabled");
-        createNotificationChannel();
+        /*createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
@@ -72,7 +72,7 @@ public class LocationService extends Service {
             notifManager.notify(new Random().nextInt(), notification);
             //startForeground(1, notification);
             startNotify = true;
-        }
+        } */
         hnd.postDelayed(rnb,100);
         return START_NOT_STICKY;
     }
@@ -283,8 +283,8 @@ public class LocationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
-                .setContentTitle("Location Alert")
-                .setContentText(trackedDevice+" is at "+name)
+                .setContentTitle("Location Alert Triggered")
+                .setContentText(trackedDevice+" has arrived at "+name)
                 .setSmallIcon(R.mipmap.ic_logo)
                 .setContentIntent(pendingIntent)
                 .build();
@@ -298,7 +298,7 @@ public class LocationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
-                .setContentTitle(mContext.getResources().getString(R.string.app_name))
+                .setContentTitle("Location Alert Triggered")
                 .setContentText(trackedDevice+" has left "+name)
                 .setSmallIcon(R.mipmap.ic_logo)
                 .setContentIntent(pendingIntent)
