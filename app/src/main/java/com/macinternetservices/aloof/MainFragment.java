@@ -155,9 +155,6 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
     String knownName = null;
     Boolean twelveHourFormat = true;
     SharedPreferences preferences;
-    //String URL = MainApplication.PREFERENCE_URL;
-    //String timeFormat =preferences.getString(PREFERENCE_T)
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -170,7 +167,6 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
         infoWindow = (ViewGroup) getLayoutInflater().inflate(R.layout.view_info, null);
         infoTitle = infoWindow.findViewById(R.id.title);
         infoSnippet = infoWindow.findViewById(R.id.details);
-        //infoButton = infoWindow.findViewById(R.id.button);
         btnShowRoute = infoWindow.findViewById(R.id.btnShowRoute);
         btnAddGeofence = infoWindow.findViewById(R.id.btnAddGeofence);
         iv_online = infoWindow.findViewById(R.id.iv_online);
@@ -178,25 +174,13 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
         iv_offline = infoWindow.findViewById(R.id.iv_offline);
         iv_offline.setVisibility(View.GONE);
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        //speedUnit = PREFERENCE_SPD_UNIT;
 
-        // Setting custom OnTouchListener which deals with the pressed state
-        // so it shows up
-
-        /*infoButtonListener = new OnInfoWindowElemTouchListener(infoButton) {
-            @Override
-            protected void onClickConfirmed(View v, Marker marker) {
-                // Here we can perform some action triggered after clicking the button
-                Toast.makeText(getContext(), marker.getTitle() + "'s button clicked!", Toast.LENGTH_SHORT).show();
-            }
-        }; */
         btnAddGeofence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(getContext(), AddGeoFenceActivity.class), REQUEST_DEVICE);
             }
         });
-//        infoButton.setOnTouchListener(infoButtonListener);
 
         if (preferences.contains(PREFERENCE_SPD_UNIT)) {
             speedUnit = preferences.getString(PREFERENCE_SPD_UNIT, null);
@@ -215,8 +199,6 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
         inflater.inflate(R.menu.main, menu);
     }
 
-    //String speedSelected;
-    //RadioButton btn_mph, btn_kmh, btn_kn;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -321,7 +303,6 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                                 } else {
                                     Toast.makeText(getContext(), R.string.error_invalid_url, Toast.LENGTH_LONG).show();
                                 }
-                                //preferences.edit().putString(MainApplication.PREFERENCE_SPD_UNIT, speed).apply();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -437,19 +418,6 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void result) {
-                      /* createNotificationChannel();
-                        Intent notificationIntent = new Intent(getContext(), MainActivity.class);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),
-                                0, notificationIntent, 0);
-                        Notification notification = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                                .setContentTitle("Movement Monitoring Service")
-                                .setContentText("Movement Monitoring Enabled")
-                                .setSmallIcon(R.mipmap.ic_logo)
-                                .setContentIntent(pendingIntent)
-                                .build();
-                        NotificationManager notifManager =
-                                (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                        notifManager.notify(new Random().nextInt(), notification); */
                         Log.e("Transition Service","success");
                     }
                 }
@@ -459,7 +427,6 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                 new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        // Handle error
                         Log.e("Transition Service","failure");
                     }
                 }
