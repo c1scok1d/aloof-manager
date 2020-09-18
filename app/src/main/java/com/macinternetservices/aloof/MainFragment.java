@@ -437,20 +437,20 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void result) {
-                        createNotificationChannel();
+                      /* createNotificationChannel();
                         Intent notificationIntent = new Intent(getContext(), MainActivity.class);
                         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),
                                 0, notificationIntent, 0);
                         Notification notification = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                                .setContentTitle("Transition Service")
-                                .setContentText("Transition Service Enabled")
+                                .setContentTitle("Movement Monitoring Service")
+                                .setContentText("Movement Monitoring Enabled")
                                 .setSmallIcon(R.mipmap.ic_logo)
                                 .setContentIntent(pendingIntent)
                                 .build();
                         NotificationManager notifManager =
                                 (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                        notifManager.notify(new Random().nextInt(), notification);
-                        //Log.e("ttt","success");
+                        notifManager.notify(new Random().nextInt(), notification); */
+                        Log.e("Transition Service","success");
                     }
                 }
         );
