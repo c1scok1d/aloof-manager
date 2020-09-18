@@ -460,7 +460,7 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                     @Override
                     public void onFailure(Exception e) {
                         // Handle error
-                        Log.e("ttt","failure");
+                        Log.e("Transition Service","failure");
                     }
                 }
         );
