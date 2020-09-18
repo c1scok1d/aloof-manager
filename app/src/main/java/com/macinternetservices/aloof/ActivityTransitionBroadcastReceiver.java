@@ -259,8 +259,8 @@ public class ActivityTransitionBroadcastReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
-                .setContentTitle("Movement Monitoring")
-                .setContentText(message)
+                .setContentTitle(message)
+                .setContentText("Tap to track")
                 .setSmallIcon(R.mipmap.ic_logo)
                 .setContentIntent(pendingIntent)
                 .build();
@@ -275,8 +275,8 @@ public class ActivityTransitionBroadcastReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
-                .setContentTitle("Movment Monitoring")
-                .setContentText(message)
+                .setContentTitle(message)
+                .setContentText("Tap to see the route")
                 .setSmallIcon(R.mipmap.ic_logo)
                 .setContentIntent(pendingIntent)
                 .build();
