@@ -283,7 +283,7 @@ public class LocationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
-                .setContentTitle("Location Alert Triggered")
+                .setContentTitle("We're alerting you because")
                 .setContentText(trackedDevice+" has arrived at "+name)
                 .setSmallIcon(R.mipmap.ic_logo)
                 .setContentIntent(pendingIntent)
