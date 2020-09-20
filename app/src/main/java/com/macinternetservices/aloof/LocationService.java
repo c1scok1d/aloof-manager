@@ -194,7 +194,6 @@ public class LocationService extends Service {
             return listData;
         }
 
-
         @Override
         protected void onPostExecute(ArrayList<GeoLoc> data) {
             super.onPostExecute(data);
@@ -211,7 +210,7 @@ public class LocationService extends Service {
                     UpdateGeoLoc updateGeoLoc = new UpdateGeoLoc();
                     updateGeoLoc.execute();
                     //Log.e("Geofence Enter","Enter Checked");
-                    if (/*data.get(i).getNotified().equals(false) && */data.get(i).getStatus().equals("1") && !enterAlert) {
+                    if (data.get(i).getStatus().equals("1") && !enterAlert) {
                         enterNotification(LocationService.this, geoLoc.getName());
                         enterAlert = true;
                         exitAlert = false;
@@ -221,7 +220,7 @@ public class LocationService extends Service {
                     UpdateGeoLoc2 updateGeoLoc = new UpdateGeoLoc2();
                     updateGeoLoc.execute();
                     //Log.e("Geofence Exit","Exit Checked");
-                    if (/*data.get(i).getNotified().equals(false) && */data.get(i).getStatus().equals("1") && !exitAlert) {
+                    if (data.get(i).getStatus().equals("1") && !exitAlert) {
                         exitNotification(LocationService.this, geoLoc.getName());
                         exitAlert = true;
                         enterAlert = false;
@@ -298,7 +297,7 @@ public class LocationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
                 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
-                .setContentTitle("Location Alert Triggered")
+                .setContentTitle("We're alerting you because")
                 .setContentText(trackedDevice+" has left "+name)
                 .setSmallIcon(R.mipmap.ic_logo)
                 .setContentIntent(pendingIntent)
