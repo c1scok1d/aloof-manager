@@ -524,6 +524,8 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
         map = googleMap;
         GetGeoLoc getGeoLoc = new GetGeoLoc();
         getGeoLoc.execute();
+
+
         map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
@@ -574,6 +576,56 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                 }
             }
         });
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                // Retrieve the data from the marker.
+                Integer clickCount = (Integer) marker.getTag();
+
+                // get address for device lat/lng from google api
+                Geocoder geocoder;
+                List<Address> addresses;
+                geocoder = new Geocoder(getContext(), Locale.getDefault());
+                address = "address";
+                bldgno = "bldgno";
+                street = "street";
+                city = "city";
+                state = "state";
+                postalCode = "zipcode";
+                country = null;
+                knownName = null;
+                try {
+                    addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                    address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    bldgno = addresses.get(0).getSubThoroughfare(); // building number
+                    street = addresses.get(0).getThoroughfare(); //street name
+                    city = addresses.get(0).getLocality();
+                    state = addresses.get(0).getAdminArea();
+                    country = addresses.get(0).getCountryName();
+                    postalCode = addresses.get(0).getPostalCode();
+                    knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // Check if a click count was set, then display the click count.
+                //if (clickCount != null) {
+//                    clickCount = clickCount + 1;
+//                    marker.setTag(clickCount);
+                    Toast.makeText(getContext(),
+                            marker.getTitle() +
+                                    " is currently at " + address,
+                            Toast.LENGTH_SHORT).show();
+                //}
+
+                // Return false to indicate that we have not consumed the event and that we wish
+                // for the default behavior to occur (which is for the camera to move such that the
+                // marker is centered and for the marker's info window to open, if it has one).
+
+                return false;
+            }
+        });
         createWebSocket();
 
         Intent transitionIntent = new Intent(getContext(), LocationService.class);
@@ -585,6 +637,7 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
+
 
     @SuppressLint("MissingPermission")
     private void displayRoute(/*Context ctx*/) {
@@ -809,7 +862,7 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                     batAlert = true;
                     new AlertDialog.Builder(getContext())
                             .setTitle("Low Battery Alert")
-                            .setMessage(devices.get(deviceId).getName() + " is " + position.getAttributes().getBatteryLevel() + "% battery charge")
+                            .setMessage(devices.get(deviceId).getName() + " has " + position.getAttributes().getBatteryLevel() + "% battery charge")
                             .setPositiveButton(android.R.string.ok, null)
                             .show();
                 }

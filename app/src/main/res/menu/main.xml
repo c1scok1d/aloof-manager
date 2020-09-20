@@ -17,23 +17,24 @@
         android:title="@string/devices_title"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_add_geofence"
-        android:title="Add Geofence"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_edit_geofence"
-        android:title="Edit Geofence"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_clear"
-        android:title="Clear Geofence"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_transition"
-        android:title="Transition Alert"
-        app:showAsAction="never" />
+    <group>
+        <item
+            android:id="@+id/action_transition"
+            android:title="Enable Transition Alerts"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_add_geofence"
+            android:title="Add Proximity Alert"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_edit_geofence"
+            android:title="Edit Proximity Alert"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_clear"
+            android:title="Clear Proximity Alert"
+            app:showAsAction="never" />
+    </group>
     <item
         android:id="@+id/action_logout"
         android:title="@string/logout_title"

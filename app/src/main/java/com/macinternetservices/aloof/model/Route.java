@@ -1,13 +1,22 @@
 package com.macinternetservices.aloof.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Route {
+public class Route implements Parcelable {
 
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("stillStartTime")
+    @Expose
+    private String stillStartTime;
+    @SerializedName("lastTransactionEndTime")
+    @Expose
+    private String lastTransactionEndTime;
     @SerializedName("attributes")
     @Expose
     private Attributes attributes;
@@ -60,9 +69,143 @@ public class Route {
     @Expose
     private Object network;
 
+    protected Route(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            deviceId = null;
+        } else {
+            deviceId = in.readInt();
+        }
+        stillStartTime = in.readString();
+        lastTransactionEndTime = in.readString();
+        protocol = in.readString();
+        serverTime = in.readString();
+        deviceTime = in.readString();
+        fixTime = in.readString();
+        byte tmpOutdated = in.readByte();
+        outdated = tmpOutdated == 0 ? null : tmpOutdated == 1;
+        byte tmpValid = in.readByte();
+        valid = tmpValid == 0 ? null : tmpValid == 1;
+        if (in.readByte() == 0) {
+            latitude = null;
+        } else {
+            latitude = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            longitude = null;
+        } else {
+            longitude = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            altitude = null;
+        } else {
+            altitude = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            speed = null;
+        } else {
+            speed = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            course = null;
+        } else {
+            course = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            accuracy = null;
+        } else {
+            accuracy = in.readDouble();
+        }
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        if (deviceId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(deviceId);
+        }
+        dest.writeString(stillStartTime);
+        dest.writeString(lastTransactionEndTime);
+        dest.writeString(protocol);
+        dest.writeString(serverTime);
+        dest.writeString(deviceTime);
+        dest.writeString(fixTime);
+        dest.writeByte((byte) (outdated == null ? 0 : outdated ? 1 : 2));
+        dest.writeByte((byte) (valid == null ? 0 : valid ? 1 : 2));
+        if (latitude == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(latitude);
+        }
+        if (longitude == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(longitude);
+        }
+        if (altitude == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(altitude);
+        }
+        if (speed == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(speed);
+        }
+        if (course == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(course);
+        }
+        if (accuracy == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(accuracy);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Route> CREATOR = new Creator<Route>() {
+        @Override
+        public Route createFromParcel(Parcel in) {
+            return new Route(in);
+        }
+
+        @Override
+        public Route[] newArray(int size) {
+            return new Route[size];
+        }
+    };
+
     public Integer getId() {
         return id;
     }
+
+    public String getstillStartTime(){ return stillStartTime;}
+
+    public String getlastTransactionEndTime(){ return lastTransactionEndTime; }
 
     public void setId(Integer id) {
         this.id = id;

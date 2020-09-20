@@ -15,7 +15,9 @@
  */
 package com.macinternetservices.aloof;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.macinternetservices.aloof.R;
+import com.macinternetservices.aloof.model.Route;
+
+import java.util.Date;
 
 public class RouteActivity extends AppCompatActivity {
     private static FragmentManager fragmentManager;
@@ -39,25 +44,18 @@ public class RouteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         fragmentManager = getSupportFragmentManager();//Get Fragment Manager
 
+        Intent notificationIntent = getIntent();
+        Bundle notificationIntentBundle = getIntent().getExtras();
+        //Bundle route = this.getAr
+
+        String stillStartTime = notificationIntent.getStringExtra("stillStartTime");
+        String lastTransactionEndTimeFoo = notificationIntent.getStringExtra("lastTransactionEndTime");
 
         if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-
-            Fragment argumentFragment = new RouteFragment();//Get Fragment Instance
-            Bundle data = new Bundle();//Use bundle to pass data
-            data.putLong("deviceId", bundle.getLong("deviceId"));//put string, int, etc in bundle with a key value
-            data.putString("startTime", bundle.getString("startTime"));
-            data.putString("endTime", bundle.getString("endTime"));
-            argumentFragment.setArguments(data);//Finally
-            //argumentFragment.setTargetFragment(DelDeviceFragment,);
-
-            fragmentManager
-                    .beginTransaction().replace(R.id.content_layout, argumentFragment)
-                    .commit();
-            /*getSupportFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.content_layout, new RouteFragment())
-                    .commit(); */
+                    .commit();
         }
     }
 

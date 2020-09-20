@@ -13,12 +13,15 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
 import com.macinternetservices.aloof.R;
+import com.macinternetservices.aloof.model.Route;
+
 import java.util.HashMap;
 import java.util.Map;
 

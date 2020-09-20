@@ -15,10 +15,12 @@
  */
 package com.macinternetservices.aloof;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import androidx.multidex.MultiDexApplication;
 
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -111,7 +113,6 @@ public class MainApplication extends MultiDexApplication {
 
         //if (!preferences.contains(PREFERENCE_URL)) {
             preferences.edit().putString(PREFERENCE_URL, DEFAULT_SERVER).apply();
-        //}
     }
 
     private void initService() {
