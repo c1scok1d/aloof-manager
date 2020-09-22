@@ -13,10 +13,6 @@ public class Position {
     @Expose
     private List<Position> positions = null;
 
-   /* public Position(Double latitude, Double longitude, Date fixTime, Double speed) {
-
-    }*/
-
     public List<Position> getPositions() {
         return positions;
     }
