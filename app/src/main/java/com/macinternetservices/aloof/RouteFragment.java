@@ -83,8 +83,6 @@ public class RouteFragment extends SupportMapFragment implements OnMapReadyCallb
         try {
             lastTransactionEndTime = fmt.parse(getArguments().getString("lastTransactionEndTime"));
             stillStartTime =  fmt.parse(getArguments().getString("lastTransactionEndTime"));
-
-            //System.out.println(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -126,14 +124,17 @@ public class RouteFragment extends SupportMapFragment implements OnMapReadyCallb
                                 Toast.makeText(getContext(), "No points to display", Toast.LENGTH_LONG).show();
                             }
                         }
-                        LatLngBounds bounds = latLngBoundsBuilder.build();
-                        //CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(position.getLatitude(), position.getLongitude();
+                        polyline = map.addPolyline(polylineOptions);
+
+                        /* LatLngBounds bounds = latLngBoundsBuilder.build();
+                        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(position.getLatitude(), position.getLongitude();
                         CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
-                        //map.moveCamera(center);
+                        map.moveCamera(center); */
                         map.animateCamera(CameraUpdateFactory.zoomTo(16));
                         map.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBoundsBuilder.build(),100));
                     }
                 });
+
             }
 
             @Override
@@ -141,6 +142,6 @@ public class RouteFragment extends SupportMapFragment implements OnMapReadyCallb
                 return false;
             }
         });
-        polyline = map.addPolyline(polylineOptions);
+
     }
 }
