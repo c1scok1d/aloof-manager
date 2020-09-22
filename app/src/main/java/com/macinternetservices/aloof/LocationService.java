@@ -55,24 +55,7 @@ public class LocationService extends Service {
     boolean startNotify = false;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("Monitoring","Monitoring Enabled");
-        /*createNotificationChannel();
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
-        if(!startNotify) {
-            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle("Location Monitoring")
-                    .setContentText("Monitoring Enabled")
-                    .setSmallIcon(R.mipmap.ic_logo)
-                    .setContentIntent(pendingIntent)
-                    .build();
-            NotificationManager notifManager =
-                    (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-            notifManager.notify(new Random().nextInt(), notification);
-            //startForeground(1, notification);
-            startNotify = true;
-        } */
+        Log.e("Monitoring","Geofence Monitoring Enabled");
         hnd.postDelayed(rnb,100);
         return START_NOT_STICKY;
     }

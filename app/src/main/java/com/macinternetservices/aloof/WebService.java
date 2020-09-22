@@ -19,6 +19,7 @@ import com.macinternetservices.aloof.model.Command;
 import com.macinternetservices.aloof.model.CommandType;
 import com.macinternetservices.aloof.model.Device;
 import com.macinternetservices.aloof.model.Geofence;
+import com.macinternetservices.aloof.model.Points;
 import com.macinternetservices.aloof.model.Position;
 import com.macinternetservices.aloof.model.User;
 
@@ -50,7 +51,7 @@ public interface WebService {
     Call<List<Geofence>> getGeofences();
 
     @GET("/api/positions")
-    Call<List<Position>> getPositions(@Query("deviceId") Integer deviceId, @Query("from") String beginTime, @Query("to") String endTime);
+    Call<List<Position>> getPositions(@Query("deviceId") String deviceId, @Query("from") String lastTransactionEndTime, @Query("to") String stillStartTime);
 
 //    @POST("/api/devices")
 //    Call<Device> addDevice(@Header("Content-Type") String content_Type, @Body JsonObject requestBody);

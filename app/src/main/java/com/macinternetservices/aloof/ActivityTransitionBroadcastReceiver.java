@@ -24,8 +24,10 @@ import com.google.android.gms.location.ActivityTransitionEvent;
 import com.google.android.gms.location.ActivityTransitionResult;
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.maps.model.LatLng;
+import com.macinternetservices.aloof.model.Points;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -269,7 +271,6 @@ public class ActivityTransitionBroadcastReceiver extends BroadcastReceiver {
 
     private void transitionStartNotification(final Context mContext,final String message){
 
-
         createNotificationChannel(mContext);
         Intent notificationIntent = new Intent(mContext, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
@@ -301,17 +302,25 @@ public class ActivityTransitionBroadcastReceiver extends BroadcastReceiver {
                 (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notifManager.notify(new Random().nextInt(), notification);
     }
+    String deviceId = "1051";
+    Points foo;
+
 
     private void transitionStillNotification(final Context mContext,final String message){
-        //String contentText;
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         createNotificationChannel(mContext);
         if(lastTransactionEndTime != null && stillStartTime != null) {
             Intent notificationIntent = new Intent(mContext, RouteActivity.class); //start route activity put start/end time as intent extras
-            notificationIntent.putExtra("lastTransactionEndTime", lastTransactionEndTime.toString()); //start time of last transition
-            notificationIntent.putExtra("stillStartTime", stillStartTime.toString()); //start time of still
+            foo = new Points(fmt.format(lastTransactionEndTime),fmt.format(stillStartTime), deviceId);
+            Bundle transitionDataBundle = new Bundle();
+            transitionDataBundle.putString("lastTransactionEndTime", fmt.format(lastTransactionEndTime));
+            transitionDataBundle.putString("stillStartTime", fmt.format(stillStartTime));
+            transitionDataBundle.putString("deviceId", deviceId);
+            notificationIntent.putExtras(transitionDataBundle);
+            notificationIntent.putExtra("transitionData", foo);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(mContext,
-                    0, notificationIntent, 0);
+                    0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
                     .setContentTitle(message)
                     .setContentText("Tap for route")

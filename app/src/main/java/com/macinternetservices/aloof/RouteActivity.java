@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.macinternetservices.aloof.R;
+import com.macinternetservices.aloof.model.Points;
 import com.macinternetservices.aloof.model.Route;
 
 import java.util.Date;
@@ -44,17 +45,20 @@ public class RouteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         fragmentManager = getSupportFragmentManager();//Get Fragment Manager
 
-        Intent notificationIntent = getIntent();
-        Bundle notificationIntentBundle = getIntent().getExtras();
-        //Bundle route = this.getAr
+        Points points = getIntent().getParcelableExtra("transitionData");
 
-        String stillStartTime = notificationIntent.getStringExtra("stillStartTime");
-        String lastTransactionEndTimeFoo = notificationIntent.getStringExtra("lastTransactionEndTime");
+        RouteFragment foo = new RouteFragment();
+        Bundle transitionDataBundle = new Bundle();
+        transitionDataBundle.putString("lastTransactionEndTime", points.getLastTransactionEndTime());
+        transitionDataBundle.putString("stillStartTime", points.getStillStartTime());
+        transitionDataBundle.putString("deviceId", points.getDeviceId());
+
+        foo.setArguments(transitionDataBundle);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.content_layout, new RouteFragment())
+                    .add(R.id.content_layout, foo)
                     .commit();
         }
     }

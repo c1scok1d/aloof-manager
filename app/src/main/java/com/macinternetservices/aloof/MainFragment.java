@@ -418,7 +418,7 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void result) {
-                        Log.e("Transition Service","success");
+                        Log.e("Monitoring","Transition Monitoring Enabled");
                     }
                 }
         );
@@ -427,7 +427,7 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
                 new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        Log.e("Transition Service","failure");
+                        Log.e("Monitoring","Transition Monitoring ");
                     }
                 }
         );
@@ -628,7 +628,10 @@ public class MainFragment extends SupportMapFragment implements OnMapReadyCallba
         });
         createWebSocket();
 
-        Intent transitionIntent = new Intent(getContext(), LocationService.class);
+        Intent geofenceIntent = new Intent(getContext(), LocationService.class);
+        ContextCompat.startForegroundService(getActivity(), geofenceIntent);
+
+        Intent transitionIntent = new Intent(getContext(), ActivityTransitionBroadcastReceiver.class);
         ContextCompat.startForegroundService(getActivity(), transitionIntent);
 
         //Intent transitionServiceIntent = new Intent(getContext(), TransitionService.class);
